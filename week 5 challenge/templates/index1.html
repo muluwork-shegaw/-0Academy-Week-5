@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>ML API</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 
+
+</head>
+
+<body>
+ 
+   <script>
+     var server = "http://127.0.0.1:5000";
+     var p = '/predict'
+  $( function() {
+      // from = $( "#from" )
+      //   .datepicker({
+      //     dateFormat: 'yy-mm-dd', 
+      //     defaultDate: "+1w",
+      //     changeMonth: true,
+      //     // numberOfMonths: 3
+      //   })
+      //   .on( "change", function() {
+      //     to.datepicker( "option", "minDate" ).value;
+      //   }),
+      to = $( "#to" ).datepicker({
+        dateFormat: 'yy-mm-dd', 
+         defaultDate: "+1w",
+        changeMonth: true,
+        // numberOfMonths: 3
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+      submit = $("#submit").click(function(){
+        var x ="maggie"
+        $.ajax({
+        type: "POST",
+        url: "predict",
+        data: JSON.stringify(x),
+        dataType: "json",
+     
+    });
+      });
+ 
+    function getDate( element ) {
+      return element.value
+    }
+  } );
+  
+  </script>
+ 
+<p>from Date: <input type="text" id="from"></p>
+<p>to Date: <input type="text" id="to"></p>
+<button type="submit" id="submit">predict</button>
+
+<div class="login">
+	<h1>Predict Sales Analysis</h1>
+
+   {{ prediction_text }}
+
+ </div>
+
+</body>
+</html>
